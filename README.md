@@ -18,5 +18,5 @@ As given by Flet README:
 To run the app:
 
     ```
-    flet run [app_directory]
+        flet run [app_directory]
     ```
