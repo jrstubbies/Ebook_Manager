@@ -18,13 +18,17 @@ def main(page: ft.Page):
         # controls argument,  takes own argument of a set of 'Submenu buttons' to display cascading menus
         controls = [
             
-            # submenu button for the 'Add books' submenu. Allows for addition of icon, colour change, behaviours
+            # submenu button for 'Add books'. Add icon, colour change, behaviours/events
             ft.SubmenuButton(
+
+                # set the text of the button and use in built icons. Add style to change to blue when hover over for clarity
                 content = ft.Text("Add Books"),
                 leading = ft.Icon(ft.Icons.LOCAL_LIBRARY),
                 style = ft.ButtonStyle(
                     bgcolor = {ft.ControlState.HOVERED: ft.Colors.BLUE_400},
                 ),
+
+                # add some sub menu buttons with text and colour change on hover.
                 controls = [
                     ft.MenuItemButton(
                         content = ft.Text("Add Single Book"),
@@ -41,7 +45,7 @@ def main(page: ft.Page):
                 ],
             ),
 
-            # submenu button for the 'Edit books' submenu. Allows for addition of icon, colour change, behaviours
+            # submenu button for 'Edit books'. Add icon, colour change, behaviours/events
             ft.SubmenuButton(
                 content = ft.Text("Edit Books"),
                 leading = ft.Icon(ft.Icons.EDIT),
@@ -64,7 +68,7 @@ def main(page: ft.Page):
                 ],    
             ),
 
-            # submenu button for the 'Convert books' submenu. Allows for addition of icon, colour change, behaviours
+            # submenu button for 'Convert books'. Add icon, colour change, behaviours/events
             ft.SubmenuButton(
                 content = ft.Text("Convert Books"),
                 leading = ft.Icon(ft.Icons.CHANGE_CIRCLE),
@@ -87,7 +91,7 @@ def main(page: ft.Page):
                 ],
             ),
 
-            # submenu button for the 'Remove books' submenu. Allows for addition of icon, colour change, behaviours
+            # submenu button for 'Remove books'. Add icon, colour change, behaviours/events
             ft.SubmenuButton(
                 content = ft.Text("Remove Books"),
                 leading = ft.Icon(ft.Icons.DELETE),
@@ -115,6 +119,28 @@ def main(page: ft.Page):
     # add the menu bar to the main page
     page.add(ft.Row([menubar]))
 
+    # a DataTable control used to display book info (title, author, series, genre etc) in a table view 
+    library_display = ft.DataTable(
+        columns = [
+            ft.DataColumn(ft.Text("Title")),
+            ft.DataColumn(ft.Text("Author")),
+            ft.DataColumn(ft.Text("Series")),
+            ft.DataColumn(ft.Text("Year"), numeric = True),
+            ft.DataColumn(ft.Text("Genre")),
+        ],
+        rows = [
+            ft.DataRow(
+                cells = [
+                    ft.DataCell(ft.Text("Harry Potter 1")),
+                    ft.DataCell(ft.Text("J.K.Rowling")),
+                    ft.DataCell(ft.Text("Harry Potter")),
+                    ft.DataCell(ft.Text("1997")),
+                    ft.DataCell(ft.Text("Fantasy")),
+                ]
+            )
+        ]
+    )
 
+    page.add(ft.Column([library_display]))
 # run the app
 ft.app(main)
