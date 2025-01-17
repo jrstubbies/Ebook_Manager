@@ -2,104 +2,119 @@ import flet as ft
 
 
 def main(page: ft.Page):
-    appbar_text_ref = ft.Ref[ft.Text]()
 
-    # on click of menu item will display what button was clicked down the bottom of the window
-    def handle_menu_item_click(e):
-        print(f"{e.control.content.value}.on_click")
-        page.open(ft.SnackBar(content=ft.Text(f"{e.control.content.value} was clicked!")))
-        appbar_text_ref.current.value = e.control.content.value
-        page.update()
-
-    # in the command terminal will print when a submenu is opened
-    def handle_submenu_open(e):
-        print(f"{e.control.content.value}.on_open")
-
-    # in the command terminal will print when a submenu is closed
-    def handle_submenu_close(e):
-        print(f"{e.control.content.value}.on_close")
-        
-
+    # Create a menu bar passing in arguments to the MenuStyle() to add text and style
     menubar = ft.MenuBar(
-        expand=True,
-        style=ft.MenuStyle(
-            alignment=ft.alignment.top_left,
-            bgcolor=ft.Colors.RED_300,
-            mouse_cursor={
-                ft.ControlState.HOVERED: ft.MouseCursor.WAIT,
-                ft.ControlState.DEFAULT: ft.MouseCursor.ZOOM_OUT,
-            },
+        
+        # expand argument, sets menu bar to match the width of the window
+        expand = True,              
+        
+        # style argument, takes own arguments to put menu at top of window and the colour
+        style = ft.MenuStyle(
+            alignment = ft.alignment.top_left,
+            bgcolor = ft.Colors.RED_300,
         ),
-        controls=[
+
+        # controls argument,  takes own argument of a set of 'Submenu buttons' to display cascading menus
+        controls = [
+            
+            # submenu button for the 'Add books' submenu. Allows for addition of icon, colour change, behaviours
             ft.SubmenuButton(
-                content=ft.Text("File"),
-                on_open=handle_submenu_open,
-                on_close=handle_submenu_close,
-                controls=[
+                content = ft.Text("Add Books"),
+                leading = ft.Icon(ft.Icons.LOCAL_LIBRARY),
+                style = ft.ButtonStyle(
+                    bgcolor = {ft.ControlState.HOVERED: ft.Colors.BLUE_400},
+                ),
+                controls = [
                     ft.MenuItemButton(
-                        content=ft.Text("About"),
-                        leading=ft.Icon(ft.Icons.INFO),
-                        style=ft.ButtonStyle(
-                            bgcolor={ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        content = ft.Text("Add Single Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
                         ),
-                        on_click=handle_menu_item_click,
                     ),
                     ft.MenuItemButton(
-                        content=ft.Text("Save"),
-                        leading=ft.Icon(ft.Icons.SAVE),
-                        style=ft.ButtonStyle(
-                            bgcolor={ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        content = ft.Text("Add Multiple Books"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
                         ),
-                        on_click=handle_menu_item_click,
-                    ),
-                    ft.MenuItemButton(
-                        content=ft.Text("Quit"),
-                        leading=ft.Icon(ft.Icons.CLOSE),
-                        style=ft.ButtonStyle(
-                            bgcolor={ft.ControlState.HOVERED: ft.Colors.GREEN_100}
-                        ),
-                        on_click=handle_menu_item_click,
-                    ),
+                    )
                 ],
             ),
+
+            # submenu button for the 'Edit books' submenu. Allows for addition of icon, colour change, behaviours
             ft.SubmenuButton(
-                content=ft.Text("View"),
-                on_open=handle_submenu_open,
-                on_close=handle_submenu_close,
-                controls=[
-                    ft.SubmenuButton(
-                        content=ft.Text("Zoom"),
-                        controls=[
-                            ft.MenuItemButton(
-                                content=ft.Text("Magnify"),
-                                leading=ft.Icon(ft.Icons.ZOOM_IN),
-                                close_on_click=False,
-                                style=ft.ButtonStyle(
-                                    bgcolor={
-                                        ft.ControlState.HOVERED: ft.Colors.PURPLE_200
-                                    }
-                                ),
-                                on_click=handle_menu_item_click,
-                            ),
-                            ft.MenuItemButton(
-                                content=ft.Text("Minify"),
-                                leading=ft.Icon(ft.Icons.ZOOM_OUT),
-                                close_on_click=False,
-                                style=ft.ButtonStyle(
-                                    bgcolor={
-                                        ft.ControlState.HOVERED: ft.Colors.PURPLE_200
-                                    }
-                                ),
-                                on_click=handle_menu_item_click,
-                            ),
-                        ],
+                content = ft.Text("Edit Books"),
+                leading = ft.Icon(ft.Icons.EDIT),
+                style = ft.ButtonStyle(
+                    bgcolor = {ft.ControlState.HOVERED: ft.Colors.BLUE_400},
+                ),
+                controls = [
+                    ft.MenuItemButton(
+                        content = ft.Text("Edit Single Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
+                    ),
+                    ft.MenuItemButton(
+                        content = ft.Text("Edit Multiple Books"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
+                    )
+                ],    
+            ),
+
+            # submenu button for the 'Convert books' submenu. Allows for addition of icon, colour change, behaviours
+            ft.SubmenuButton(
+                content = ft.Text("Convert Books"),
+                leading = ft.Icon(ft.Icons.CHANGE_CIRCLE),
+                style = ft.ButtonStyle(
+                    bgcolor = {ft.ControlState.HOVERED: ft.Colors.BLUE_400},
+                ),
+                controls = [
+                    ft.MenuItemButton(
+                        content = ft.Text("Edit Single Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
+                    ),
+                    ft.MenuItemButton(
+                        content = ft.Text("Edit Multiple Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
+                    )
+                ],
+            ),
+
+            # submenu button for the 'Remove books' submenu. Allows for addition of icon, colour change, behaviours
+            ft.SubmenuButton(
+                content = ft.Text("Remove Books"),
+                leading = ft.Icon(ft.Icons.DELETE),
+                style = ft.ButtonStyle(
+                    bgcolor = {ft.ControlState.HOVERED: ft.Colors.BLUE_400},
+                ),
+                controls = [
+                    ft.MenuItemButton(
+                        content = ft.Text("Remove Single Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
+                    ),
+                    ft.MenuItemButton(
+                        content = ft.Text("Remove Multiple Book"),
+                        style = ft.ButtonStyle(
+                            bgcolor = {ft.ControlState.HOVERED: ft.Colors.GREEN_100}
+                        ),
                     )
                 ],
             ),
         ],
     )
 
+    # add the menu bar to the main page
     page.add(ft.Row([menubar]))
 
 
+# run the app
 ft.app(main)
